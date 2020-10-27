@@ -13,7 +13,7 @@
 library(haven)
 library(tidyverse)
 # Read in the raw data.
-setwd("C:/Users/Sammi-Jo/Desktop/PS3")
+setwd("/Users/labibchowdhury/coursework/STA304/ps3/US-Presidential-Election-2020-Popular-Vote-Prediction")
 raw_data <- read_dta("inputs/usa_00002.dta.gz")
 
 

@@ -13,7 +13,21 @@
 #### Workspace setup ####
 library(haven)
 library(tidyverse)
-setwd("C:/Users/Sammi-Jo/Desktop/PS3")
+
+
+#LABIBS WD
+WD = "/Users/labibchowdhury/coursework/STA304/ps3/US-Presidential-Election-2020-Popular-Vote-Prediction"
+
+#ERICS WD
+# WD = 
+
+#LISAS WD
+#WD =
+
+#SAKSHAMS WD
+#WD =
+
+setwd(WD)
 # Read in the raw data (You might need to change this if you use a different dataset)
 raw_data <- read_dta("inputs/ns20200625/ns20200625.dta")
 # Add the labels
