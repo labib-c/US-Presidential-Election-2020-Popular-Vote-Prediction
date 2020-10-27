@@ -12,8 +12,21 @@
 #### Workspace setup ####
 library(haven)
 library(tidyverse)
+
+#LABIBS WD
+WD = "/Users/labibchowdhury/coursework/STA304/ps3/US-Presidential-Election-2020-Popular-Vote-Prediction"
+
+#ERICS WD
+# WD = 
+
+#LISAS WD
+#WD =
+
+#SAKSHAMS WD
+#WD =
+
 # Read in the raw data.
-setwd("/Users/labibchowdhury/coursework/STA304/ps3/US-Presidential-Election-2020-Popular-Vote-Prediction")
+setwd(WD)
 raw_data <- read_dta("inputs/usa_00002.dta.gz")
 
 
