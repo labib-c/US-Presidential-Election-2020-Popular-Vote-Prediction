@@ -3,6 +3,7 @@
 .Rapp.history
 phase_*
 *.dta
+inputs/
 
 # Session Data files
 .RData
