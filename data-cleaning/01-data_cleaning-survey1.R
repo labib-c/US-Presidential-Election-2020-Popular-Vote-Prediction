@@ -24,10 +24,10 @@ WD = "~/Library/Mobile Documents/com~apple~CloudDocs/University/5th Year (2020-2
 
 
 #LISAS WD
-#WD =
+WD = "/Users/Lisa/Desktop/PS3"
 
 #SAKSHAMS WD
-#WD = "C:/Users/saksh/Desktop/STA304/Pset3"
+# WD = "C:/Users/saksh/Desktop/STA304/Pset3"
 
 setwd(WD)
 # Read in the raw data (You might need to change this if you use a different dataset)
@@ -111,7 +111,7 @@ state_mapping <-  c("AK" = "alaska",
 reduced_data<-
   reduced_data %>%
   mutate(vote_trump =
-           ifelse(vote_2020=="Donald Trump", 1, ifelse(vote_2020=="Joe Biden",0,-1))) %>%
+           ifelse(vote_2020=="Donald Trump", 1, ifelse(vote_2020=="Joe Biden", 0, -1))) %>%
   mutate(race=race_mapping[race_ethnicity]) %>% 
   mutate(state=state_mapping[state]) %>%
   filter(vote_trump != -1)
