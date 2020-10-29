@@ -16,17 +16,16 @@ library(tidyverse)
 
 
 #LABIBS WD
-
-WD = "/Users/labibchowdhury/coursework/STA304/ps3/US-Presidential-Election-2020-Popular-Vote-Prediction"
+# WD = "/Users/labibchowdhury/coursework/STA304/ps3/US-Presidential-Election-2020-Popular-Vote-Prediction"
 
 #ERICS WD
 # WD = 
 
 #LISAS WD
-#WD =
+WD = "/Users/Lisa/Desktop/PS3"
 
 #SAKSHAMS WD
-#WD = "C:/Users/saksh/Desktop/STA304/Pset3"
+# WD = "C:/Users/saksh/Desktop/STA304/Pset3"
 
 setwd(WD)
 # Read in the raw data (You might need to change this if you use a different dataset)
@@ -58,7 +57,7 @@ race_mapping <- c("White" = 1, "Black, or African American" = 2, "American India
 reduced_data<-
   reduced_data %>%
   mutate(vote_trump =
-           ifelse(vote_2020=="Donald Trump", 1, ifelse(vote_2020=="Joe Biden",0,-1))) %>%
+           ifelse(vote_2020=="Donald Trump", 1, ifelse(vote_2020=="Joe Biden", 0, -1))) %>%
   mutate(race=race_mapping[race_ethnicity]) %>% 
   filter(vote_trump != -1)
 
