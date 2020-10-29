@@ -17,10 +17,11 @@ library(tidyverse)
 
 #LABIBS WD
 
-WD = "/Users/labibchowdhury/coursework/STA304/ps3/US-Presidential-Election-2020-Popular-Vote-Prediction"
+#WD = "/Users/labibchowdhury/coursework/STA304/ps3/US-Presidential-Election-2020-Popular-Vote-Prediction"
 
 #ERICS WD
-# WD = 
+WD = "~/Library/Mobile Documents/com~apple~CloudDocs/University/5th Year (2020-2021)/STA304/Problem Set 3/US-Presidential-Election-2020-Popular-Vote-Prediction"
+
 
 #LISAS WD
 #WD =
@@ -55,11 +56,64 @@ race_mapping <- c("White" = 1, "Black, or African American" = 2, "American India
                   "Pacific Islander (Native Hawaiian)" = 6, "Pacific Islander (Other)" = 6, 
                   "Pacific Islander (Samoan)" = 6, "Pacific Islander (Guamanian)" = 6, "Some other race" = 7)
 
+state_mapping <-  c("AK" = "alaska",
+                    "AL" = "alabama",
+                    "AR" = "arkansas",
+                    "AZ" = "arizona",
+                    "CA" = "california",
+                    "CO" = "colorado",
+                    "CT" = "connecticut",
+                    "DC" = "district of columbia",
+                    "DE" = "delaware",
+                    "FL" = "florida",
+                    "GA" = "georgia",
+                    "HI" = "hawaii",
+                    "IA" = "iowa",
+                    "ID" = "idaho",
+                    "IL" = "illinois",
+                    "IN" = "indiana",
+                    "KS" = "kansas",
+                    "KY" = "kentucky",
+                    "LA" = "louisiana",
+                    "MA" = "massachusetts",
+                    "MD" = "maryland",
+                    "ME" = "maine",
+                    "MI" = "michigan",
+                    "MN" = "minnesota",
+                    "MO" = "missouri",
+                    "MS" = "mississippi",
+                    "MT" = "montana",
+                    "NC" = "north carolina",
+                    "ND" = "north dakota", 
+                    "NE" = "nebraska",
+                    "NH" = "new hampshire",
+                    "NJ" = "new jersey",
+                    "NM" = "new mexico",
+                    "NV" = "nevada", 
+                    "NY" = "new york",
+                    "OH" = "ohio",
+                    "OK" = "oklahoma", 
+                    "OR" = "oregon",
+                    "PA" = "pennsylvania",
+                    "RI" = "rhode island",
+                    "SC" = "south carolina",
+                    "SD" = "south dakota",
+                    "TN" = "tennessee",
+                    "TX" = "texas",
+                    "UT" = "utah", 
+                    "VA" = "virginia",
+                    "VT" = "vermont",
+                    "WA" = "washington",
+                    "WI" = "wisconsin", 
+                    "WV" = "west virginia",
+                    "WY" = "wyoming")
+
 reduced_data<-
   reduced_data %>%
   mutate(vote_trump =
            ifelse(vote_2020=="Donald Trump", 1, ifelse(vote_2020=="Joe Biden",0,-1))) %>%
   mutate(race=race_mapping[race_ethnicity]) %>% 
+  mutate(state=state_mapping[state]) %>%
   filter(vote_trump != -1)
 
 
