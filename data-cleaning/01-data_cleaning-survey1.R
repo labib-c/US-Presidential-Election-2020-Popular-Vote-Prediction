@@ -17,7 +17,7 @@ library(tidyverse)
 
 #LABIBS WD
 
-#WD = "/Users/labibchowdhury/coursework/STA304/ps3/US-Presidential-Election-2020-Popular-Vote-Prediction"
+WD = "/Users/labibchowdhury/coursework/STA304/ps3/US-Presidential-Election-2020-Popular-Vote-Prediction"
 
 #ERICS WD
 # WD = 
@@ -26,11 +26,11 @@ library(tidyverse)
 #WD =
 
 #SAKSHAMS WD
-WD = "C:/Users/saksh/Desktop/STA304/Pset3"
+#WD = "C:/Users/saksh/Desktop/STA304/Pset3"
 
 setwd(WD)
 # Read in the raw data (You might need to change this if you use a different dataset)
-raw_data <- read_dta("Data/ns20200625.dta")
+raw_data <- read_dta("inputs/ns20200625/ns20200625.dta")
 # Add the labels
 raw_data <- labelled::to_factor(raw_data)
 # Just keep some variables

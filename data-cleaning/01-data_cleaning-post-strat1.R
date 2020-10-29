@@ -27,7 +27,7 @@ WD = "/Users/labibchowdhury/coursework/STA304/ps3/US-Presidential-Election-2020-
 
 # Read in the raw data.
 setwd(WD)
-raw_data <- read_dta("inputs/usa_00001.dta.gz")
+raw_data <- read_dta("inputs/usa_00002.dta.gz")
 
 
 # Add the labels
@@ -37,18 +37,10 @@ raw_data <- labelled::to_factor(raw_data)
 # this depending on your interests)
 reduced_data <- 
   raw_data %>% 
-  select(region,
-         stateicp,
-         sex, 
+  select(statefip,
          age, 
          race, 
-         #hispan,
-         marst, 
-         #bpl,
-         citizen,
-         educd,
-         labforce,
-         inctot)
+         hhincome)
          
 
 #### What's next? ####
