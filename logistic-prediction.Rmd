@@ -1,7 +1,7 @@
 ---
-title: "Title of Your Report"
-author: "Names of your Group Members"
-date: "Due Date"
+title: "Predicting Election Turnout with Multilevel Regression and Poststratification"
+author: "Lisa Oh, Saksham Ahluwalia, Labib Chowdhury, Eric Yuan"
+date: "November 2, 2020"
 output:
   pdf_document: default
   html_document:
@@ -11,19 +11,27 @@ output:
 ```{r setup, include=FALSE}
 library(tidyverse)
 
+
+#LABIBS WD
+# WD = "/Users/labibchowdhury/coursework/STA304/ps3/US-Presidential-Election-2020-Popular-Vote-Prediction"
+
+#ERICS WD
+# WD = 
+
+#LISAS WD
+WD = "/Users/Lisa/Desktop/PS3/outputs"
+
+#SAKSHAMS WD
+#WD =
+
+setwd(WD)
+
 # Loading in the cleaned survey Data
-survey_data <- read_csv("C:/Users/Sammi-Jo/Desktop/PS3/outputs/survey_data.csv")
+survey_data <- read.csv("survey_data.csv")
 
 # Loading in the cleaned census Data
-census_data <- read_csv("C:/Users/Sammi-Jo/Desktop/PS3/outputs/census_data.csv")
-
+census_data <- read.csv("census_data.csv")
 ```
-
-# Title of your Report
-
-## Name(s) of Author(s) 
-## Date
-
 
 # Model
 
@@ -40,7 +48,7 @@ Where $y$ represents the proportion of voters who will vote for Donald Trump. Si
 ```{r, include=FALSE}
 
 # Creating the Model
-model <- glm(vote_trump ~ age , 
+model <- glm(vote_trump ~ age, 
             data=survey_data, family= "binomial")
 
 # Model Results (to Report in Results section)
@@ -93,7 +101,9 @@ Here you discuss subsequent work to be done after this report. This can include 
 
 # References
 
+Steven Ruggles, Sarah Flood, Ronald Goeken, Josiah Grover, Erin Meyer, Jose Pacas and Matthew Sobek. IPUMS USA: Version 10.0 [dataset]. Minneapolis, MN: IPUMS, 2020. https://doi.org/10.18128/D010.V10.0
+
 Tausanovitch, Chris and Lynn Vavreck. 2020. Democracy Fund + UCLA Nationscape, October 10-17, 2019 (version 20200814). Retrieved from https://www.voterstudygroup.org/downloads?key=dd05a560-c382-42f1-a3e4-7e5318f9781a
 
-
+CITE THIS: https://www.rdocumentation.org/packages/plyr/versions/1.8.6/topics/revalue
 
