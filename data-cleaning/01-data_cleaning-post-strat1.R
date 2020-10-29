@@ -36,7 +36,7 @@ raw_data <- labelled::to_factor(raw_data)
 # Just keep some variables that may be of interest (change 
 # this depending on your interests)
 reduced_data <- raw_data %>% 
-  select(statefip, age, race, hhincome, citizen)
+  select(statefip, age, race, hhincome)
 
 #### What's next? ####
 
