@@ -36,22 +36,10 @@ raw_data <- labelled::to_factor(raw_data)
 # Just keep some variables
 reduced_data <- 
   raw_data %>% 
-  select(interest,
-         registration,
-         vote_2016,
-         vote_intention,
-         vote_2020,
-         ideo5,
-         employment,
-         foreign_born,
-         gender,
-         census_region,
-         hispanic,
+  select(vote_2020,
          race_ethnicity,
          household_income,
-         education,
          state,
-         congress_district,
          age)
 
 
@@ -60,11 +48,20 @@ reduced_data <-
 # Maybe check the values?
 # Is vote a binary? If not, what are you going to do?
 
+#Mapping according to IPUMS
+race_mapping <- c("White" = 1, "Black, or African American" = 2, "American Indian or Alaska Native" = 3, 
+                  "Asian (Chinese)" = 4, "Asian (Japanese)" = 5, "Asian (Other)" = 6, "Asian (Vietnamese)" = 6,
+                  "Asian (Asian Indian)" = 6, "Asian (Korean)" = 6, "Asian (Filipino)" = 6,
+                  "Pacific Islander (Native Hawaiian)" = 6, "Pacific Islander (Other)" = 6, 
+                  "Pacific Islander (Samoan)" = 6, "Pacific Islander (Guamanian)" = 6, "Some other race" = 7)
+
 reduced_data<-
   reduced_data %>%
   mutate(vote_trump =
            ifelse(vote_2020=="Donald Trump", 1, ifelse(vote_2020=="Joe Biden",0,-1))) %>%
+  mutate(race=race_mapping[race_ethnicity]) %>% 
   filter(vote_trump != -1)
+
 
 # Saving the survey/sample data as a csv file in my
 # working directory
