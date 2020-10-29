@@ -17,7 +17,7 @@ library(plyr)
 
 #LABIBS WD
 
-WD = "/Users/labibchowdhury/coursework/STA304/ps3/US-Presidential-Election-2020-Popular-Vote-Prediction"
+#WD = "/Users/labibchowdhury/coursework/STA304/ps3/US-Presidential-Election-2020-Popular-Vote-Prediction"
 
 #ERICS WD
 #WD = "~/Library/Mobile Documents/com~apple~CloudDocs/University/5th Year (2020-2021)/STA304/Problem Set 3/US-Presidential-Election-2020-Popular-Vote-Prediction"
@@ -27,7 +27,7 @@ WD = "/Users/labibchowdhury/coursework/STA304/ps3/US-Presidential-Election-2020-
 #WD = "/Users/Lisa/Desktop/PS3"
 
 #SAKSHAMS WD
-# WD = "C:/Users/saksh/Desktop/STA304/Pset3"
+#WD = "C:/Users/saksh/Desktop/STA304/Pset3"
 
 setwd(WD)
 # Read in the raw data (You might need to change this if you use a different dataset)
@@ -119,6 +119,16 @@ reduced_data<-
   mutate(race_ethnicity=revalue(race_ethnicity, race_mapping)) %>%
   mutate(state=revalue(state, state_mapping)) %>%
   filter(vote_trump != -1)
+
+reduced_data <- reduced_data %>% 
+  filter(as.numeric(age) > 18) %>% 
+  mutate(age_cat = ifelse(as.numeric(age) <= 25, "18-25",
+                   ifelse(as.numeric(age) <= 35, "26-35",
+                   ifelse(as.numeric(age) <= 45, "36-45",
+                   ifelse(as.numeric(age) <= 55, "46-55",
+                   ifelse(as.numeric(age) <= 65, "56-65",
+                   ifelse(as.numeric(age) <= 75, "66-75",
+                   ifelse(as.numeric(age) <= 85, "76-85", "85 and over"))))))))
 
 
 # Saving the survey/sample data as a csv file in my

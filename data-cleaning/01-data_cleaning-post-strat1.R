@@ -17,13 +17,13 @@ library(tidyverse)
 #WD = "/Users/labibchowdhury/coursework/STA304/ps3/US-Presidential-Election-2020-Popular-Vote-Prediction"
 
 #ERICS WD
-WD = "~/Library/Mobile Documents/com~apple~CloudDocs/University/5th Year (2020-2021)/STA304/Problem Set 3/US-Presidential-Election-2020-Popular-Vote-Prediction"
+#WD = "~/Library/Mobile Documents/com~apple~CloudDocs/University/5th Year (2020-2021)/STA304/Problem Set 3/US-Presidential-Election-2020-Popular-Vote-Prediction"
 
 #LISAS WD
-WD = "/Users/Lisa/Desktop/PS3"
+#WD = "/Users/Lisa/Desktop/PS3"
 
 #SAKSHAMS WD
-#WD =
+#WD = "C:/Users/saksh/Desktop/STA304/Pset3"
 
 # Read in the raw data.
 setwd(WD)
@@ -67,6 +67,19 @@ reduced_data<- reduced_data %>%
                             ifelse(hhincome <= 174999, "$150,000 to $174,999",
                             ifelse(hhincome <= 199999, "$175,000 to $199,999",
                             ifelse(hhincome <= 249999, "$200,000 to $249,999", "$250,000 and above"))))))))))))))))))))))))
+
+
+reduced_data <- reduced_data %>% 
+  filter(as.numeric(age) > 18) %>% 
+  mutate(age_cat = ifelse(as.numeric(age) <= 25, "18-25",
+                    ifelse(as.numeric(age) <= 35, "26-35",
+                    ifelse(as.numeric(age) <= 45, "36-45",
+                    ifelse(as.numeric(age) <= 55, "46-55",
+                    ifelse(as.numeric(age) <= 65, "56-65",
+                    ifelse(as.numeric(age) <= 75, "66-75",
+                    ifelse(as.numeric(age) <= 85, "76-85", "85 and over"))))))))
+  
+
 
 ## Here I am only splitting cells by age, but you 
 ## can use other variables to split by changing
