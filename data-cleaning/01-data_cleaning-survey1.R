@@ -10,10 +10,10 @@
 # - Don't forget to gitignore it!
 
 
-#### Workspace setup ####
+#### Workspace setup ###
 library(haven)
 library(tidyverse)
-
+library(plyr)
 
 #LABIBS WD
 
@@ -49,17 +49,21 @@ reduced_data <-
 # Is vote a binary? If not, what are you going to do?
 
 #Mapping according to IPUMS
-race_mapping <- c("White" = 1, "Black, or African American" = 2, "American Indian or Alaska Native" = 3, 
-                  "Asian (Chinese)" = 4, "Asian (Japanese)" = 5, "Asian (Other)" = 6, "Asian (Vietnamese)" = 6,
-                  "Asian (Asian Indian)" = 6, "Asian (Korean)" = 6, "Asian (Filipino)" = 6,
-                  "Pacific Islander (Native Hawaiian)" = 6, "Pacific Islander (Other)" = 6, 
-                  "Pacific Islander (Samoan)" = 6, "Pacific Islander (Guamanian)" = 6, "Some other race" = 7)
+race_mapping <- c("White" = "white", "Black, or African American" = "black/african american/negro", 
+                  "American Indian or Alaska Native" = "american indian or alaska native", 
+                  "Asian (Japanese)" = "japanese", "Asian (Chinese)" = "chinese", 
+                  "Asian (Other)" = "other asian or pacific islander", "Asian (Vietnamese)" = "other asian or pacific islander",
+                  "Asian (Asian Indian)" = "other asian or pacific islander", "Asian (Korean)" = "other asian or pacific islander", 
+                  "Asian (Filipino)" = "other asian or pacific islander",
+                  "Pacific Islander (Native Hawaiian)" = "other asian or pacific islander", "Pacific Islander (Other)" = "other asian or pacific islander", 
+                  "Pacific Islander (Samoan)" = "other asian or pacific islander", "Pacific Islander (Guamanian)" = "other asian or pacific islander", 
+                  "Some other race" = "other race, nec")
 
 reduced_data<-
   reduced_data %>%
   mutate(vote_trump =
            ifelse(vote_2020=="Donald Trump", 1, ifelse(vote_2020=="Joe Biden",0,-1))) %>%
-  mutate(race=race_mapping[race_ethnicity]) %>% 
+  mutate(race=revalue(race_ethnicity, race_mapping)) %>% 
   filter(vote_trump != -1)
 
 
