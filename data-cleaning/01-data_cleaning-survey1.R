@@ -17,7 +17,7 @@ library(plyr)
 
 #LABIBS WD
 
-#WD = "/Users/labibchowdhury/coursework/STA304/ps3/US-Presidential-Election-2020-Popular-Vote-Prediction"
+WD = "/Users/labibchowdhury/coursework/STA304/ps3/US-Presidential-Election-2020-Popular-Vote-Prediction"
 
 #ERICS WD
 #WD = "~/Library/Mobile Documents/com~apple~CloudDocs/University/5th Year (2020-2021)/STA304/Problem Set 3/US-Presidential-Election-2020-Popular-Vote-Prediction"
@@ -116,8 +116,8 @@ reduced_data<-
   reduced_data %>%
   mutate(vote_trump =
            ifelse(vote_2020=="Donald Trump", 1, ifelse(vote_2020=="Joe Biden", 0, -1))) %>%
-  mutate(race_ethnicity=revalue(race_ethnicity, race_mapping)) %>%
-  mutate(state=revalue(state, state_mapping)) %>%
+  mutate(race=revalue(race_ethnicity, race_mapping)) %>%
+  mutate(statefip=revalue(state, state_mapping)) %>%
   filter(vote_trump != -1)
 
 reduced_data <- reduced_data %>% 

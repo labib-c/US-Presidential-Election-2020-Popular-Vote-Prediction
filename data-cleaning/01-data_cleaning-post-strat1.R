@@ -11,6 +11,7 @@
 
 #### Workspace setup ####
 library(haven)
+library(plyr)
 library(tidyverse)
 
 #LABIBS WD
@@ -79,8 +80,11 @@ reduced_data <- reduced_data %>%
                     ifelse(as.numeric(age) <= 75, "66-75",
                     ifelse(as.numeric(age) <= 85, "76-85", "85 and over"))))))))
   
-
-
+map_race <-  c("two major races" = "other race, nec",
+               "three or more major races" = "other race, nec")
+reduced_data <- reduced_data %>% 
+  mutate(race = revalue(race, map_race))
+                       
 ## Here I am only splitting cells by age, but you 
 ## can use other variables to split by changing
 ## count(age) to count(age, sex, ....)

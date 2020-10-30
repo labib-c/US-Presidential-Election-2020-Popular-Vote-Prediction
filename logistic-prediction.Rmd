@@ -13,13 +13,13 @@ library(tidyverse)
 
 
 #LABIBS WD
-# WD = "/Users/labibchowdhury/coursework/STA304/ps3/US-Presidential-Election-2020-Popular-Vote-Prediction"
+WD = "/Users/labibchowdhury/coursework/STA304/ps3/US-Presidential-Election-2020-Popular-Vote-Prediction/outputs"
 
 #ERICS WD
 # WD = 
 
 #LISAS WD
-WD = "/Users/Lisa/Desktop/PS3/outputs"
+#WD = "/Users/Lisa/Desktop/PS3/outputs"
 
 #SAKSHAMS WD
 #WD =
@@ -48,11 +48,11 @@ Where $y$ represents the proportion of voters who will vote for Donald Trump. Si
 ```{r, include=FALSE}
 
 # Creating the Model
-model <- glm(vote_trump ~ age, 
+model <- glm(vote_trump ~ as.factor(age_cat) + as.factor(race) + as.factor(household_income) + as.factor(statefip), 
             data=survey_data, family= "binomial")
 
 # Model Results (to Report in Results section)
-# summary(model)
+summary(model)
 # OR
 # broom::tidy(model)
 
