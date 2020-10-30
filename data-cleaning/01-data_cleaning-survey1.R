@@ -121,7 +121,7 @@ reduced_data<-
   filter(vote_trump != -1)
 
 reduced_data <- reduced_data %>% 
-  filter(as.numeric(age) > 18) %>% 
+  filter(as.numeric(age) >= 18) %>% 
   mutate(age_cat = ifelse(as.numeric(age) <= 25, "18-25",
                    ifelse(as.numeric(age) <= 35, "26-35",
                    ifelse(as.numeric(age) <= 45, "36-45",
