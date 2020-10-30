@@ -14,7 +14,7 @@ library(haven)
 library(tidyverse)
 
 #LABIBS WD
-#WD = "/Users/labibchowdhury/coursework/STA304/ps3/US-Presidential-Election-2020-Popular-Vote-Prediction"
+WD = "/Users/labibchowdhury/coursework/STA304/ps3/US-Presidential-Election-2020-Popular-Vote-Prediction"
 
 #ERICS WD
 #WD = "~/Library/Mobile Documents/com~apple~CloudDocs/University/5th Year (2020-2021)/STA304/Problem Set 3/US-Presidential-Election-2020-Popular-Vote-Prediction"
@@ -70,7 +70,7 @@ reduced_data<- reduced_data %>%
 
 
 reduced_data <- reduced_data %>% 
-  filter(as.numeric(age) > 18) %>% 
+  filter(as.numeric(age) >= 18) %>% 
   mutate(age_cat = ifelse(as.numeric(age) <= 25, "18-25",
                     ifelse(as.numeric(age) <= 35, "26-35",
                     ifelse(as.numeric(age) <= 45, "36-45",
@@ -85,18 +85,12 @@ reduced_data <- reduced_data %>%
 ## can use other variables to split by changing
 ## count(age) to count(age, sex, ....)
 
-# sample code:"
-# reduced_data <- 
-#   reduced_data %>%
-#   count(age) %>%
-#   group_by(age) 
-# 
-# reduced_data <- 
-#   reduced_data %>% 
-#   filter(age != "less than 1 year old") %>%
-#   filter(age != "90 (90+ in 1980 and 1990)")
-# 
-# reduced_data$age <- as.integer(reduced_data$age)
+reduced_data <- 
+  reduced_data %>%
+  count(age_cat, statefip, race, household_income) %>%
+  group_by(age_cat, statefip, race, household_income) 
+
+
 
 # Saving the census data as a csv file in my
 # working directory
