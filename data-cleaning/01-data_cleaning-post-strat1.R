@@ -91,7 +91,7 @@ reduced_data <- reduced_data %>%
 
 reduced_data <- 
   reduced_data %>%
-  count(age_cat, statefip, race, household_income) %>%
+  dplyr::count(age_cat, statefip, race, household_income) %>%
   group_by(age_cat, statefip, race, household_income) 
 
 
