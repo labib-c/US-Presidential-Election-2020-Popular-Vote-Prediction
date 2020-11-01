@@ -1,11 +1,12 @@
 #### Preamble ####
-# Purpose: Prepare and clean the survey data downloaded from [...UPDATE ME!!!!!]
-# Author: Rohan Alexander and Sam Caetano [CHANGE THIS TO YOUR NAME!!!!]
-# Data: 22 October 2020
-# Contact: rohan.alexander@utoronto.ca [PROBABLY CHANGE THIS ALSO!!!!]
+# Purpose: Prepare and clean the survey data downloaded from https://www.voterstudygroup.org/downloads?key=dd05a560-c382-42f1-a3e4-7e5318f9781a
+# (UCLA + Democracy Fund)
+# Author: Lisa Oh, Saksham Ahluwalia, Labib Chowdhury, Eric Yuan
+# Data: 2 November 2020
+# Contact: ishmamlabib.chowdhury@mail.utoronto.ca
 # License: MIT
 # Pre-requisites: 
-# - Need to have downloaded the data from X and save the folder that you're 
+# - Need to have downloaded the data from Democracy Fund and save the folder that you're 
 # interested in to inputs/data 
 # - Don't forget to gitignore it!
 
