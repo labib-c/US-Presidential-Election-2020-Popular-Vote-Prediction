@@ -13,13 +13,13 @@ library(tidyverse)
 
 
 #LABIBS WD
-# WD = "/Users/labibchowdhury/coursework/STA304/ps3/US-Presidential-Election-2020-Popular-Vote-Prediction/outputs"
+WD = "/Users/labibchowdhury/coursework/STA304/ps3/US-Presidential-Election-2020-Popular-Vote-Prediction/outputs"
 
 #ERICS WD
 # WD = 
 
 #LISAS WD
-WD = "/Users/Lisa/Desktop/PS3/outputs"
+#WD = "/Users/Lisa/Desktop/PS3/outputs"
 
 #SAKSHAMS WD
 #WD =
@@ -55,7 +55,7 @@ The model from Eq. 1 is fit using survey data from the voter study group data co
 
 Afterwards, we employed the post-stratification technique. In this technique, assuming demographics information is collected, each observation in a dataset is categorized into specific bins/cells by select demographic variables. Thus, by making estimates for the variable of interest within each cell, a population-level estimate can be extrapolated by weighting each cell by its relative proportion in the dataset. Post-stratification is useful when the data is not necessarily representative of the population. This is especially common if the individuals chosen for the dataset were not selected at random (otherwise known as non-probability sampling). The formula to employ the post-stratification technique is the following (Eq 2.):
 
-$$ \hat{y}^{PS} = \frac{\sum_{j=1}^{K}N_j\hat{y}_j}{\sum_{j=1}^{K}N_j}$$ where $K$ is the number of cells, $N_j$ is the size of each cell, and \hat{y}_j is the cell-level estimate. 
+$$ \hat{y}^{PS} = \frac{\sum_{j=1}^{K}N_j\hat{y}_j}{\sum_{j=1}^{K}N_j}$$ where $K$ is the number of cells, $N_j$ is the size of each cell, and $\hat{y}_j$ is the cell-level estimate. 
 
 For our investigation, we partitioned our census data into cells by age, race, household income, and state. We chose household income because it is likely to influence voter outcome because of the different proposed policies by the two political parties. Variables related to dwelling were not included because they are likely dependent on household income. In total, we created 42,217 cells. Cell-level estimates of voter outcome were made by the logistic model previously described. 
 
@@ -93,7 +93,7 @@ census_data %>%
   summarise(alp_predict = sum(alp_predict_prop)/sum(n))
 ```
 
-Furthermore, upon studying the census data (Figure 1) we found a sharp division in the ‘age_cat’ variable. Only 36% of individuals aged 18-25 were in favour of voting for Trump compared to 61% of individuals aged 85 and over. We also observed a linear trend in ‘age_cat’ with respect to voting in favour of Trump. As a result, if an individual is aged 85 or over then the probability that they vote for Trump increases roughly by a factor of 1.07 compared to a factor of 0.41 if the individual is aged 18-25 (Table 1).
+Furthermore, upon studying the census data (Table 2) we found a sharp division in the ‘age_cat’ variable. Only 36% of individuals aged 18-25 were in favour of voting for Trump compared to 61% of individuals aged 85 and over. We also observed a linear trend in ‘age_cat’ with respect to voting in favour of Trump. As a result, if an individual is aged 85 or over then the probability that they vote for Trump increases roughly by a factor of 1.07 compared to a factor of 0.41 if the individual is aged 18-25 (Table 1).
 
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
 census_data %>%
@@ -101,7 +101,7 @@ census_data %>%
   group_by(age_cat) %>% 
   summarise(alp_predict = sum(alp_predict_prop)/sum(n))
 ```
-(Figure 1: Prediction of Proportion of Trump Votes by Age Category)
+(Table 2: Prediction of Proportion of Trump Votes by Age Category)
 
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
 census_data %>%
@@ -109,9 +109,9 @@ census_data %>%
   group_by(race) %>% 
   summarise(alp_predict = sum(alp_predict_prop)/sum(n))
 ```
-(Figure 2: Prediction of Proportion of Trump Votes by Race)
+(Table 3: Prediction of Proportion of Trump Votes by Race)
 
-We also found individuals who identified as ‘White’ and ‘American Indian or Alaska native’ were more likely to vote for Trump compared to individuals from the ‘African American’ community (Figure 2).
+We also found individuals who identified as ‘White’ and ‘American Indian or Alaska native’ were more likely to vote for Trump compared to individuals from the ‘African American’ community (Table 3).
 
 
 # Discussion
