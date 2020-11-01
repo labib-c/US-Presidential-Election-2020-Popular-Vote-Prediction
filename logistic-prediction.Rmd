@@ -13,10 +13,11 @@ library(tidyverse)
 
 
 #LABIBS WD
-WD = "/Users/labibchowdhury/coursework/STA304/ps3/US-Presidential-Election-2020-Popular-Vote-Prediction/outputs"
+#WD = "/Users/labibchowdhury/coursework/STA304/ps3/US-Presidential-Election-2020-Popular-Vote-Prediction/outputs"
 
 #ERICS WD
-# WD = 
+WD = "~/Library/Mobile Documents/com~apple~CloudDocs/University/5th Year (2020-2021)/STA304/Problem Set 3/US-Presidential-Election-2020-Popular-Vote-Prediction"
+
 
 #LISAS WD
 #WD = "/Users/Lisa/Desktop/PS3/outputs"
@@ -116,14 +117,20 @@ We also found individuals who identified as ‘White’ and ‘American Indian o
 
 # Discussion
 
+### Summary
+
 As we are trying to model the proportion of voters who will vote for Donald Trump, we proceeded with a logistic regression model as the response variable we are looking for is binary: 1 representing a vote for Donald Trump, and 0 representing a vote for Joe Biden. This model was trained on four predictor variables: age, household income, residing state, and race. We then employ the post-stratification technique by partitioning the data we retrieved from the Integrated Public Use Microdata Series (IPUMS) into their own prospective household income group, and then applying the logistic model to the dataset obtained from IPUMS.
 
+### Conclusion
 
-## Weaknesses
+From applying the post-stratification data on our logistic model, we estimate that the proportion of voters that are in favour of voting for the Republican party is 0.503; we predict that the Republican party will win the 2020 election and Donald Trump will be the next president.
+
+
+### Weaknesses
 
 One of the main weaknesses of our analysis is that we disregard electoral colleges, and solely assume that having the popular vote will determine the winner of the presidential election. There has been five times in US history where the president did not have the popular vote, but still won the election: John Quincy Adams in the 1824 election, Rutherford B. Hayes in the 1876 election, Benjamin Harrison in the 1888 election, George W. Bush in the 2000 election, and Donald Trump in the 2016 election (Law, 2019). Another weakness is that our model only looks at four predictors.
 
-## Next Steps
+### Next Steps
 
 To improve upon the weaknesses of our analysis we can factor in the electoral colleges. That is, we determine what the potential swing states are based on historical voting data, and assign a weighting to these states as they will have a higher impact on the election when compared to non-swing states. Furthermore, we can also look into adding more covariates to improve on our existing model or fitting a different type of model to the survey data.
 
