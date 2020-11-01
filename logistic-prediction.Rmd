@@ -13,13 +13,13 @@ library(tidyverse)
 
 
 #LABIBS WD
-WD = "/Users/labibchowdhury/coursework/STA304/ps3/US-Presidential-Election-2020-Popular-Vote-Prediction/outputs"
+# WD = "/Users/labibchowdhury/coursework/STA304/ps3/US-Presidential-Election-2020-Popular-Vote-Prediction/outputs"
 
 #ERICS WD
 # WD = 
 
 #LISAS WD
-#WD = "/Users/Lisa/Desktop/PS3/outputs"
+WD = "/Users/Lisa/Desktop/PS3/outputs"
 
 #SAKSHAMS WD
 #WD =
@@ -40,7 +40,7 @@ We are interested predicting the proportion of voters who vote for Donald Trump 
 
 ## Model Specifics
 
-The model chosen to model the proportion of voters who will vote for Donald Trump in the 2020 United States Presidential Election is a Logistic Regression model represented by the following equation (Eq. 1):
+The model chosen to model the proportion of voters who will vote for Donald Trump versus Joe Biden in the 2020 United States Presidential Election is a Logistic Regression model represented by the following equation (Eq. 1):
 $$
 \log({\frac{p}{1-p}}) = \beta_0 + \sum^{K}_{i=1}\beta_ix_i
 $$
@@ -51,6 +51,15 @@ The chosen predictors for our model are age, race, household income, and state.
 A Logistic Model was chosen for this problem space due to the binary nature of the response variable `vote_trump`, where `1` represents a vote for Donald Trump and `0` represents a vote for Joe Biden (all other vote options were removed such as ‘Will not vote’). The predictors were selected as we believe these are key factors when one decides which candidate to vote for, and we wanted to explore whether or not these factors are as significant as we believe them to be.
 The model from Eq. 1 is fit using survey data from the voter study group data collected by UCLA and Democracy Fund (Tausanovitch and Vavreck, 2020) .
 
+## Post-Stratification 
+
+Afterwards, we employed the post-stratification technique. In this technique, assuming demographics information is collected, each observation in a dataset is categorized into specific bins/cells by select demographic variables. Thus, by making estimates for the variable of interest within each cell, a population-level estimate can be extrapolated by weighting each cell by its relative proportion in the dataset. Post-stratification is useful when the data is not necessarily representative of the population. This is especially common if the individuals chosen for the dataset were not selected at random (otherwise known as non-probability sampling). The formula to employ the post-stratification technique is the following (Eq 2.):
+
+$$ \hat{y}^{PS} = \frac{\sum_{j=1}^{K}N_j\hat{y}_j}{\sum_{j=1}^{K}N_j}$$ where $K$ is the number of cells, $N_j$ is the size of each cell, and \hat{y}_j is the cell-level estimate. 
+
+For our investigation, we partitioned our census data into cells by age, race, household income, and state. We chose household income because it is likely to influence voter outcome because of the different proposed policies by the two political parties. Variables related to dwelling were not included because they are likely dependent on household income. In total, we created 42,217 cells. Cell-level estimates of voter outcome were made by the logistic model previously described. 
+
+# Results
 Table 1 below shows the summary of the first 10 weights.
 
 ```{r, echo=FALSE}
@@ -64,12 +73,10 @@ broom::tidy(model)
 ```
 (Table 1: Summary of Model)
 
-## Post-Stratification 
+From Table 1, we observe the slope for the “black/african american/negro” race level has a value of -2.28, which is one of the steepest decrease from our model. This shows that the log odds of a voter voting for Trump if they identify as a member of this race decreases by a factor of 2.28.
 
-Afterwards, we employed the post-stratification technique. In this technique, assuming demographics information is collected, each observation in a dataset is categorized into specific bins/cells by select demographic variables. Thus, by making estimates for the variable of interest within each cell, a population-level estimate can be extrapolated by weighting each cell by its relative proportion in the dataset. Post-stratification is useful when the data is not necessarily representative of the population. This is especially common if the individuals chosen for the dataset were not selected at random (otherwise known as non-probability sampling). For our investigation, we partitioned our census data into cells by age, race, household income, and state. We chose household income because it is likely to influence voter outcome because of the different proposed policies by the two political parties. Variables related to dwelling were not included because they are likely dependent on household income. In total, 42,217 cells were created. Cell-level estimates of voter outcome were made by the logistic model previously described. The formula to employ the post-stratification technique is the following (Eq 2.):
+The result of the post-stratification technique is displayed below. This value tells us that the estimated proportion of voters in favor of Trump over Biden modeled by a Logistical Regression model is about 0.507. 
 
-$$ y^{PS} = \frac{\sum_{j=1}^{K}N_jy_j}{\sum_{j=1}^{K}N_j}$$ where $K$ is the number of cells. 
-The result of the post-stratification technique is displayed below:
 
 ```{r, echo=FALSE}
 
@@ -84,17 +91,11 @@ census_data$estimate <-
 census_data %>%
   mutate(alp_predict_prop = estimate*n) %>%
   summarise(alp_predict = sum(alp_predict_prop)/sum(n))
-
-
 ```
 
+Furthermore, upon studying the census data (Figure 1) we found a sharp division in the ‘age_cat’ variable. Only 36% of individuals aged 18-25 were in favour of voting for Trump compared to 61% of individuals aged 85 and over. We also observed a linear trend in ‘age_cat’ with respect to voting in favour of Trump. As a result, if an individual is aged 85 or over then the probability that they vote for Trump increases roughly by a factor of 1.07 compared to a factor of 0.41 if the individual is aged 18-25 (Table 1).
 
-# Results
-
-According to our post-stratification analysis of the proportion of voters in favour of Trump modelled by a Logistical Regression model we think that the proportion of voters who will favour Trump in the upcoming election is 0.507. Our model is based on key demographics of an individual such as, age of the individual, state of residence, their income category and their race.
-Studying the census data (Figure 1) we found a sharp division in the ‘age_cat’ variable. Only 36% of individuals aged 18-25 were in favour of voting for Trump compared to 61% of individuals aged 85 and over. We also observed a linear trend in ‘age_cat’ with respect to voting in favour of Trump. As a result, if an individual is aged 85 or over then the probability that they vote for Trump increases roughly by a factor of 1.07 compared to a factor of 0.41 if the individual is aged 18-25 (Table 1).
-
-```{r, echo=FALSE}
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
 census_data %>%
   mutate(alp_predict_prop = estimate*n) %>%
   group_by(age_cat) %>% 
@@ -102,7 +103,7 @@ census_data %>%
 ```
 (Figure 1: Prediction of Proportion of Trump Votes by Age Category)
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
 census_data %>%
   mutate(alp_predict_prop = estimate*n) %>%
   group_by(race) %>% 
@@ -111,7 +112,6 @@ census_data %>%
 (Figure 2: Prediction of Proportion of Trump Votes by Race)
 
 We also found individuals who identified as ‘White’ and ‘American Indian or Alaska native’ were more likely to vote for Trump compared to individuals from the ‘African American’ community (Figure 2).
-From Table 1, we observe the slope for the “black/african american/negro” race level has a value of -2.28, which is one of the steepest decrease from our model. This shows that the log odds of a voter voting for Trump is they are African American decreases by a factor of 2.28, which confirms the prediction of our model described previously.
 
 
 # Discussion
