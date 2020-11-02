@@ -16,11 +16,11 @@ library(tidyverse)
 #WD = "/Users/labibchowdhury/coursework/STA304/ps3/US-Presidential-Election-2020-Popular-Vote-Prediction/outputs"
 
 #ERICS WD
-# WD = "~/Desktop/outputs"
+ WD = "~/Desktop/outputs"
 
 
 #LISAS WD
-WD = "/Users/Lisa/Desktop/PS3/outputs"
+#WD = "/Users/Lisa/Desktop/PS3/outputs"
 
 #SAKSHAMS WD
 #WD =
@@ -35,7 +35,7 @@ census_data <- read.csv("census_data.csv")
 ```
 # Model
 
-We are interested predicting the proportion of voters who vote for Donald Trump in the 2020 US Presidential Election. To do this we are employing a post-stratification technique. In the following sub-sections we will describe the model specifics and the post-stratification calculation.
+We are interested predicting the proportion of voters who vote for Donald Trump in the 2020 US Presidential Election. To do this we are employing a post-stratification technique. In the following sub-sections we will describe the model specifics and the post-stratification calculation. Code supporting this analysis is available in the link under Appendix.
 
 
 ## Model Specifics
@@ -129,7 +129,14 @@ One of the main weaknesses of our analysis is that we disregard electoral colleg
 
 ### Next Steps
 
-To improve upon the weaknesses of our analysis we can factor in the electoral colleges. That is, we determine what the potential swing states are based on historical voting data, and assign a weighting to these states as they will have a higher impact on the election when compared to non-swing states. Furthermore, we can also look into adding more covariates to improve on our existing model or fitting a different type of model to the survey data. It would also be interesting to compare our results with the true election results and carry out a post-hoc analysis on how to better improve our estimation in future elections.
+To improve upon the weaknesses of our analysis we can factor in the electoral college system that the United States uses. The electoral college system assigns two votes representing the Senate seats for every state, and more votes that are allocated based on the population of the state representing the House seats. The party with the popular vote in these states takes all the electoral votes in the state (with the exception of Maine and Nebraska), and to win the election, the winning party needs 270 electoral votes. This makes states where the Democratic party or Republican party have a relatively equal chance of winning, called swing states, extremely important for the presidential candidates to get 270 electoral votes. For future analysis, we can use historical voting data to determine the potential swing states for the upcoming election, and then assign a heavier weighting to these states as they will have a higher impact on the election when compared to non-swing states.
+
+Furthermore, we can also look into adding more covariates to improve on our existing model or fitting a different type of model to the survey data. It would also be interesting to compare our results with the true election results and carry out a post-hoc analysis on how to better improve our estimation in future elections.
+
+
+# Appendix
+
+https://github.com/labib-c/US-Presidential-Election-2020-Popular-Vote-Prediction
 
 # References
 
