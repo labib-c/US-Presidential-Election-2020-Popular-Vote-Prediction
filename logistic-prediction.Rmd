@@ -16,11 +16,11 @@ library(tidyverse)
 #WD = "/Users/labibchowdhury/coursework/STA304/ps3/US-Presidential-Election-2020-Popular-Vote-Prediction/outputs"
 
 #ERICS WD
-WD = "~/Desktop/outputs"
+# WD = "~/Desktop/outputs"
 
 
 #LISAS WD
-#WD = "/Users/Lisa/Desktop/PS3/outputs"
+WD = "/Users/Lisa/Desktop/PS3/outputs"
 
 #SAKSHAMS WD
 #WD =
@@ -33,7 +33,6 @@ survey_data <- read.csv("survey_data.csv")
 # Loading in the cleaned census Data
 census_data <- read.csv("census_data.csv")
 ```
-
 # Model
 
 We are interested predicting the proportion of voters who vote for Donald Trump in the 2020 US Presidential Election. To do this we are employing a post-stratification technique. In the following sub-sections we will describe the model specifics and the post-stratification calculation.
@@ -41,16 +40,14 @@ We are interested predicting the proportion of voters who vote for Donald Trump 
 
 ## Model Specifics
 
-The model chosen to model the proportion of voters who will vote for Donald Trump versus Joe Biden in the 2020 United States Presidential Election is a Logistic Regression model represented by the following equation (Eq. 1):
+A logistic regression model was chosen to model the proportion of voters who will vote for Donald Trump versus Joe Biden in the 2020 United States Presidential Election. It is represented by the following equation (Eq. 1):
 $$
 \log({\frac{p}{1-p}}) = \beta_0 + \sum^{K}_{i=1}\beta_ix_i
 $$
 
-The response variable $p$ indicates whether someone votes for Donald Trump. $\beta_0$ represents the intercept term, which represents the case where every factor level in the chosen predictors is at the initial level. Similarly, $\sum^{K}_{i=1}\beta_ix_i$ indicates the slope $\beta_i$ associated with each factor level of the predictors $x_i$. This conveys that the slope associated with each factor level represents the change in log odds for every unit increased in the associated predictor. Also, $K$ represents the total number of factor levels in each predictor.
-The chosen predictors for our model are age, race, household income, and state. 
+The response variable $p$ indicates whether someone votes for Donald Trump. $\beta_0$ represents the intercept term, which represents the case where every factor level in the chosen predictors is at the initial level. Similarly, $\sum^{K}_{i=1}\beta_ix_i$ indicates the slope $\beta_i$ associated with each factor level of the predictors $x_i$. This conveys that the slope associated with each factor level represents the change in log odds for every unit increased in the associated predictor. Also, $K$ represents the total number of factor levels in each predictor. The predictors for our model are age, race, household income, and state. 
 
-A Logistic Model was chosen for this problem space due to the binary nature of the response variable `vote_trump`, where `1` represents a vote for Donald Trump and `0` represents a vote for Joe Biden (all other vote options were removed such as ‘Will not vote’). The predictors were selected as we believe these are key factors when one decides which candidate to vote for, and we wanted to explore whether or not these factors are as significant as we believe them to be.
-The model from Eq. 1 is fit using survey data from the voter study group data collected by UCLA and Democracy Fund (Tausanovitch and Vavreck, 2020) .
+The logistic model was chosen for this problem space due to the binary nature of the response variable `vote_trump`, where `1` represents a vote for Donald Trump and `0` represents a vote for Joe Biden (all other responses, such as ‘Will not vote’, were removed). The predictors were selected as we believe these are key factors when one decides which candidate to vote for, and we wanted to explore whether or not these factors are as significant as we believe them to be.The model from Eq. 1 was fit using survey data from the voter study group data collected by UCLA and Democracy Fund (Tausanovitch and Vavreck, 2020).
 
 ## Post-Stratification 
 
@@ -74,7 +71,7 @@ broom::tidy(model)
 ```
 (Table 1: Summary of Model)
 
-From Table 1, we observe the slope for the “black/african american/negro” race level has a value of -2.28, which is one of the steepest decrease from our model. This shows that the log odds of a voter voting for Trump if they identify as a member of this race decreases by a factor of 2.28.
+From Table 1, we observe the slope for the “black/african american/negro” race level has a value of -2.28, which has the greatest magnitude in our model. This shows that the log odds of a voter voting for Trump, if they identify as a member of this race, decreases by a factor of 2.28.
 
 The result of the post-stratification technique is displayed below. This value tells us that the estimated proportion of voters in favor of Trump over Biden modeled by a Logistical Regression model is about 0.507. 
 
@@ -93,7 +90,7 @@ census_data %>%
   summarise(alp_predict = sum(alp_predict_prop)/sum(n))
 ```
 
-Furthermore, upon studying the census data (Table 2) we found a sharp division in the ‘age_cat’ variable. Only 36% of individuals aged 18-25 were in favour of voting for Trump compared to 61% of individuals aged 85 and over. We also observed a linear trend in ‘age_cat’ with respect to voting in favour of Trump. As a result, if an individual is aged 85 or over then the probability that they vote for Trump increases roughly by a factor of 1.07 compared to a factor of 0.41 if the individual is aged 18-25 (Table 1).
+Furthermore, upon studying the census data below (Table 2) we found a sharp division in the ‘age_cat’ variable which represents age group. Only 36% of individuals aged 18-25 were in favour of voting for Trump compared to 61% of individuals aged 85 and over. We also observed a linearly increasing trend in ‘age_cat’ with respect to voting in favour of Trump. As a result, if an individual is aged 85 or over then the log odds that they vote for Trump increases by a factor of 1.07 compared to a factor of 0.41 if the individual is aged 18-25 (Table 1).
 
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
 census_data %>%
@@ -103,6 +100,9 @@ census_data %>%
 ```
 (Table 2: Prediction of Proportion of Trump Votes by Age Category)
 
+
+We also found individuals who identified as ‘White’ and ‘American Indian or Alaska native’ were more likely to vote for Trump compared to individuals from the ‘African American’ community (Table 3).
+
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
 census_data %>%
   mutate(alp_predict_prop = estimate*n) %>%
@@ -111,18 +111,16 @@ census_data %>%
 ```
 (Table 3: Prediction of Proportion of Trump Votes by Race)
 
-We also found individuals who identified as ‘White’ and ‘American Indian or Alaska native’ were more likely to vote for Trump compared to individuals from the ‘African American’ community (Table 3).
-
 
 # Discussion
 
 ### Summary
 
-As we are trying to model the proportion of voters who will vote for Donald Trump, we proceeded with a logistic regression model as the response variable we are looking for is binary: 1 representing a vote for Donald Trump, and 0 representing a vote for Joe Biden. This model was trained on four predictor variables: age, household income, residing state, and race. We then employ the post-stratification technique by partitioning the data we retrieved from the Integrated Public Use Microdata Series (IPUMS) into their own prospective household income group, and then applying the logistic model to the dataset obtained from IPUMS.
+As we are trying to model the proportion of voters who will vote for Donald Trump, we proceeded with a logistic regression model as the response variable we are looking for is of binary nature. This model was trained on four predictor variables: age, household income, residing state, and race. We then employed the post-stratification technique by partitioning the data we retrieved from the Integrated Public Use Microdata Series (Ruggles et al., 2020) into their own prospective household income group, and then applying the logistic model to the partitioned dataset.
 
 ### Conclusion
 
-From applying the post-stratification data on our logistic model, we estimate that the proportion of voters that are in favour of voting for the Republican party is 0.503; we predict that the Republican party will win the 2020 election and Donald Trump will be the next president.
+From our procedure, we estimate that the proportion of voters that are in favour of voting for the Republican party is 0.507; we predict that the Republican party will win the 2020 election and Donald Trump will be the next president.
 
 
 ### Weaknesses
@@ -131,7 +129,7 @@ One of the main weaknesses of our analysis is that we disregard electoral colleg
 
 ### Next Steps
 
-To improve upon the weaknesses of our analysis we can factor in the electoral colleges. That is, we determine what the potential swing states are based on historical voting data, and assign a weighting to these states as they will have a higher impact on the election when compared to non-swing states. Furthermore, we can also look into adding more covariates to improve on our existing model or fitting a different type of model to the survey data.
+To improve upon the weaknesses of our analysis we can factor in the electoral colleges. That is, we determine what the potential swing states are based on historical voting data, and assign a weighting to these states as they will have a higher impact on the election when compared to non-swing states. Furthermore, we can also look into adding more covariates to improve on our existing model or fitting a different type of model to the survey data. It would also be interesting to compare our results with the true election results and carry out a post-hoc analysis on how to better improve our estimation in future elections.
 
 # References
 
